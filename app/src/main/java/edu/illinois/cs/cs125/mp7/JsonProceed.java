@@ -3,40 +3,156 @@ package edu.illinois.cs.cs125.mp7;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/** Class of proceeding Json. */
 public class JsonProceed {
-    public double longitude;
-    public double latitude;
-    public String main_weather;
-    public String description;
-    public double temperature;
-    public double min_temperature;
-    public double max_temperature;
-    public int humidity;
-    public double pressure;
-    public double wind_speed;
-    public double wind_degree;
-    public String country;
-    public String city_name;
-    public int city_ID;
-    public JsonProceed(JSONObject input) {
+    /** Longitude. */
+    private double longitude;
+    /**
+     * Get longitude.
+     * @return longitude
+     */
+    public double getLongitude() {
+        return longitude;
+    }
+    /** Latitude. */
+    private double latitude;
+    /**
+     * Get latitude.
+     * @return latitude
+     */
+    public double getLatitude() {
+        return latitude;
+    }
+    /** Main weather. */
+    private String mainWeather;
+    /**
+     * Get main weather.
+     * @return main weather
+     */
+    public String getMainWeather() {
+        return mainWeather;
+    }
+    /** Description of weather. */
+    private String description;
+    /**
+     * Get description of weather.
+     * @return description of weather
+     */
+    public String getDescription() {
+        return description;
+    }
+    /** Temperature. */
+    private double temperature;
+    /**
+     * Get temperature.
+     * @return temperature
+     */
+    public double getTemperature() {
+        return temperature;
+    }
+    /** Minimum temperature. */
+    private double minTemperature;
+    /**
+     * Get minimum temperature.
+     * @return minimum temperature
+     */
+    public double getMinTemperature() {
+        return minTemperature;
+    }
+    /** Maximum temperature. */
+    private double maxTemperature;
+    /**
+     * Get maximum temperature.
+     * @return maximum temperature
+     */
+    public double getMaxTemperature() {
+        return maxTemperature;
+    }
+    /** Humidity. */
+    private int humidity;
+    /**
+     * Get humidity.
+     * @return humidity
+     */
+    public int getHumidity() {
+        return humidity;
+    }
+    /** Pressure. */
+    private double pressure;
+    /**
+     * Get pressure.
+     * @return pressure
+     */
+    public double getPressure() {
+        return pressure;
+    }
+    /** Wind speed. */
+    private double windSpeed;
+    /**
+     * Get wind speed.
+     * @return wind speed
+     */
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+    /** Wind degree. */
+    private double windDegree;
+    /**
+     * Get wind degree.
+     * @return wind degree
+     */
+    public double getWindDegree() {
+        return windDegree;
+    }
+    /** Country. */
+    private String country;
+    /**
+     * Get country.
+     * @return country
+     */
+    public String getCountry() {
+        return country;
+    }
+    /** City name. */
+    private String cityName;
+    /**
+     * Get city name.
+     * @return city name
+     */
+    public String getCityName() {
+        return cityName;
+    }
+    /** City ID. */
+    private int cityID;
+    /**
+     * Get city ID.
+     * @return city ID
+     */
+    public int getCityID() {
+        return cityID;
+    }
+    /**
+     * Create JsonProceed class.
+     * @param input Json object
+     */
+    public JsonProceed(final JSONObject input) {
         try {
-            this.city_ID = input.getInt("id");
-            this.city_name = input.getString("name");
+            this.cityID = input.getInt("id");
+            this.cityName = input.getString("name");
             JSONObject sys = input.getJSONObject("sys");
             this.country = sys.getString("country");
             JSONObject wind = input.getJSONObject("wind");
-            this.wind_speed = wind.getDouble("speed");
-            this.wind_degree = wind.getDouble("deg");
+            this.windSpeed = wind.getDouble("speed");
+            this.windDegree = wind.getDouble("deg");
             JSONObject main = input.getJSONObject("main");
             this.pressure = main.getDouble("pressure");
             this.humidity = main.getInt("humidity");
-            this.min_temperature = main.getDouble("temp_min");
-            this.max_temperature = main.getDouble("temp_max");
+            this.minTemperature = main.getDouble("temp_min");
+            this.maxTemperature = main.getDouble("temp_max");
             this.temperature = main.getDouble("temp");
             JSONArray weather = input.getJSONArray("weather");
             JSONObject first = weather.getJSONObject(0);
-            this.main_weather = first.getString("main");
+            this.mainWeather = first.getString("main");
             this.description = first.getString("description");
             JSONObject coord = input.getJSONObject("coord");
             this.longitude = coord.getDouble("lon");

@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">MP7</string>
+    <string name="Result_Heading">RESULT</string>
+    <string name="Coordination_Heading">Coordination</string>
+    <string name="Longitude_Heading">Longitude: </string>
+    <string name="Latitude_Heading">Latitude: </string>
+    <string name="Weather_Heading">Weather</string>
+    <string name="Main_weather_Heading">Main weather: </string>
+    <string name="Description_Heading">Description: </string>
+    <string name="Main_information_Heading">Main information</string>
+    <string name="Temperature_Heading">Temperature: </string>
+    <string name="Min_Temperature_Heading">Minimum temperature: </string>
+    <string name="Max_Temperature_Heading">Maximum temperature: </string>
+    <string name="Humidity_Heading">Humidity: </string>
+    <string name="Pressure_Heading">Pressure: </string>
+    <string name="Wind_Heading">Wind information</string>
+    <string name="Wind_Speed_Heading">Wind speed: </string>
+    <string name="Wind_Degree_Heading">Wind degree: </string>
+    <string name="Place_Heading">Place information</string>
+    <string name="Country_Heading">Country code: </string>
+    <string name="City_Name_Heading">City name: </string>
+    <string name="City_ID_Heading">City ID: </string>
     <string name="title_activity_api">APIActivity</string>
 </resources>
