@@ -87,6 +87,12 @@
                 android:layout_height="wrap_content"
                 android:text="Search the ZIP" />
 
+            <Button
+                android:id="@+id/Location_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Search Current Location" />
+
         </LinearLayout>
     </ScrollView>
 

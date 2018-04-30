@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         final Button latLonButton = findViewById(R.id.Lat_Lon_Button);
         final EditText zipLocation = findViewById(R.id.ZIP_Location);
         final Button zipButton = findViewById(R.id.ZIP_Button);
+        final Button locationButton = findViewById(R.id.Location_Button);
         // Click city button
         nameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +143,16 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("ZIP_button", test);
                     startActivity(intent);
                 }
+            }
+        });
+        // Click Location button
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Log.d(TAG, "Start Location button clicked");
+                Intent intent = new Intent(MainActivity.this,
+                        GoogleActivity.class);
+                startActivity(intent);
             }
         });
     }

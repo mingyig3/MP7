@@ -60,6 +60,12 @@ public class APIActivity extends AppCompatActivity {
             String lonMessage = message[1];
             barProgress();
             startLatLonAPICall(latMessage, lonMessage);
+        } else if (intent.hasExtra("Location_button")) {
+            double[] message = intent.getDoubleArrayExtra("Location_button");
+            String latMessage = Double.toString(message[0]);
+            String lonMessage = Double.toString(message[1]);
+            barProgress();
+            startLatLonAPICall(latMessage, lonMessage);
         } else {
             String message = intent.getStringExtra("ZIP_button");
             barProgress();
@@ -123,7 +129,7 @@ public class APIActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 "http://api.openweathermap.org/data/2.5/weather?lat=" + lat
-                        + "&lon=" + lon + "&units=metric" + "appid=" + KEY,
+                        + "&lon=" + lon + "&units=metric" + "&appid=" + KEY,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -240,5 +246,6 @@ public class APIActivity extends AppCompatActivity {
                 });
             }
         }).start();
+
     }
 }
