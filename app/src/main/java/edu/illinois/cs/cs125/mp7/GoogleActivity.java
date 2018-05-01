@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+
 import org.json.JSONObject;
 
 public class GoogleActivity extends AppCompatActivity {
@@ -79,6 +81,7 @@ public class GoogleActivity extends AppCompatActivity {
                 JSONObject location = result.getJSONObject("location");
                 back[0] = location.getDouble("lat");
                 back[1] = location.getDouble("lng");
+                Log.d("MP7:Main", Arrays.toString(back));
             }
         } catch (Exception e) {
             e.printStackTrace();

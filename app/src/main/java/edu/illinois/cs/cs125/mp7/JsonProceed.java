@@ -131,6 +131,14 @@ public class JsonProceed {
     public int getCityID() {
         return cityID;
     }
+    private String iconID;
+    public String getIconID() {
+        return iconID;
+    }
+    private int cloudiness;
+    public int getCloudiness() {
+        return cloudiness;
+    }
     /**
      * Create JsonProceed class.
      * @param input Json object
@@ -154,9 +162,12 @@ public class JsonProceed {
             JSONObject first = weather.getJSONObject(0);
             this.mainWeather = first.getString("main");
             this.description = first.getString("description");
+            this.iconID = first.getString("icon");
             JSONObject coord = input.getJSONObject("coord");
             this.longitude = coord.getDouble("lon");
             this.latitude = coord.getDouble("lat");
+            JSONObject clouds = input.getJSONObject("clouds");
+            this.cloudiness = clouds.getInt("all");
         } catch (JSONException e) {
             e.printStackTrace();
         }

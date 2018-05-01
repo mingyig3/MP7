@@ -1,10 +1,13 @@
 package edu.illinois.cs.cs125.mp7;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -15,6 +18,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 /** Activity of API. */
 public class APIActivity extends AppCompatActivity {
     /** API Key Constant. */
@@ -31,6 +39,8 @@ public class APIActivity extends AppCompatActivity {
     private int progressStatus = 0;
     /** Help handler. */
     private Handler useHandler = new Handler();
+    private Handler againHandler = new Handler();
+    private ImageView weatherImage;
     /**
      * Creating API activity.
      * @param savedInstanceState unused
@@ -42,6 +52,7 @@ public class APIActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         //Set content view
         setContentView(R.layout.activity_api_);
+         weatherImage = findViewById(R.id.WeatherImage);
         //Get intent message for city name
         Intent intent = getIntent();
         if (intent.hasExtra("Name_button")) {
@@ -193,10 +204,13 @@ public class APIActivity extends AppCompatActivity {
         final TextView country = findViewById(R.id.Country);
         final TextView cityName = findViewById(R.id.City_Name);
         final TextView cityID = findViewById(R.id.City_ID);
+        final TextView cloudiness = findViewById(R.id.Cloudiness);
         longitude.setText(String.valueOf(jsonProceed.getLongitude()) + " degrees");
         latitude.setText(String.valueOf(jsonProceed.getLatitude()) + " degrees");
         mainWeather.setText(jsonProceed.getMainWeather());
         description.setText(jsonProceed.getDescription());
+        String icon = jsonProceed.getIconID();
+        displayImage(icon);
         temperature.setText(String.valueOf(jsonProceed.getTemperature())
                 + " Celsius");
         minTemperature.setText(String.valueOf(jsonProceed.getMinTemperature())
@@ -212,6 +226,7 @@ public class APIActivity extends AppCompatActivity {
         country.setText(jsonProceed.getCountry());
         cityName.setText(jsonProceed.getCityName());
         cityID.setText(String.valueOf(jsonProceed.getCityID()));
+        cloudiness.setText(String.valueOf(jsonProceed.getCloudiness()) + " %");
     }
     /**
      * Run when this activity is no longer visible.
@@ -247,5 +262,28 @@ public class APIActivity extends AppCompatActivity {
             }
         }).start();
 
+    }
+    /**
+     * Display image.
+     */
+    private void displayImage(final String input) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://openweathermap.org/img/w/" + input + ".png");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    Log.d(TAG, "OOOOOK");
+                    InputStream inputStream = conn.getInputStream();
+                    Bitmap dis = BitmapFactory.decodeStream(inputStream);
+                    Log.d(TAG, "OK");
+                    weatherImage.setImageBitmap(dis);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
