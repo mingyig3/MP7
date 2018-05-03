@@ -77,10 +77,16 @@ public class APIActivity extends AppCompatActivity {
             String lonMessage = Double.toString(message[1]);
             barProgress();
             startLatLonAPICall(latMessage, lonMessage);
-        } else {
+        } else if (intent.hasExtra("ZIP_button")) {
             String message = intent.getStringExtra("ZIP_button");
             barProgress();
             startZIPAPICall(message);
+        } else {
+            String[] back = intent.getStringArrayExtra("ZIP_button_Optional");
+            String first = back[0];
+            String second = back[1];
+            barProgress();
+            startOptionalZIPAPICall(first, second);
         }
     }
     /**
@@ -166,6 +172,34 @@ public class APIActivity extends AppCompatActivity {
                     Request.Method.GET,
                     "http://api.openweathermap.org/data/2.5/weather?zip="
                             + input + "&units=metric" + "&appid=" + KEY,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            setValue(response);
+                            Log.d(TAG, "Complete display");
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(final VolleyError error) {
+                    Log.e(TAG, error.toString());
+                }
+            });
+            requestQueue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Make a call to the weather API base on ZIP.
+     * @param input ZIP input
+     */
+    void startOptionalZIPAPICall(final String input, final String cCode) {
+        try {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    "http://api.openweathermap.org/data/2.5/weather?zip="
+                            + input + "," + cCode + "&units=metric" + "&appid=" + KEY,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override

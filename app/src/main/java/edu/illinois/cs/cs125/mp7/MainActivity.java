@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText lon = findViewById(R.id.lon);
         final Button latLonButton = findViewById(R.id.Lat_Lon_Button);
         final EditText zipLocation = findViewById(R.id.ZIP_Location);
+        final EditText countryCode = findViewById(R.id.Country_Code);
         final Button zipButton = findViewById(R.id.ZIP_Button);
         final Button locationButton = findViewById(R.id.Location_Button);
         // Click city button
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(final View v) {
                 Log.d(TAG, "Start ZIP button clicked");
                 String test = zipLocation.getText().toString();
+                String optional = countryCode.getText().toString();
                 if (test.length() == 0) {
                     Log.d(TAG, "Not enter a ZIP code");
                     Toast.makeText(MainActivity.this,
@@ -137,10 +139,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,
                             "You did not enter a valid ZIP code",
                             Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (optional.length() == 0){
                     Intent intent = new Intent(MainActivity.this,
                             APIActivity.class);
                     intent.putExtra("ZIP_button", test);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MainActivity.this,
+                            APIActivity.class);
+                    String[] out = {test, optional};
+                    intent.putExtra("ZIP_button_Optional", out);
                     startActivity(intent);
                 }
             }
